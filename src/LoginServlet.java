@@ -15,7 +15,6 @@ public class LoginServlet extends HttpServlet {
         // 1. 초기 세팅
         Gson gson = new Gson();
         resp.setContentType("application/json; charset=utf-8");
-        ResponseMsg responseMsg;
 
         // 2. form-urlencoded 값 받기
         String username = req.getParameter("username");
@@ -23,13 +22,16 @@ public class LoginServlet extends HttpServlet {
 
         // 3. 유효성 검사 및 실패 처리
         if (username == null || username.equals("") || password == null || password.equals("")) {
-            responseMsg = new ResponseMsg(ResponseEnum.FAIL.getValue(), "loginFail");
-        } else {
-            responseMsg = new ResponseMsg(ResponseEnum.SUCCESS.getValue(), "loginSuccess");
+            ResponseMsg responseMsg = new ResponseMsg(ResponseEnum.FAIL.getValue(), "loginFail");
+            String responseBody = gson.toJson(responseMsg);
+            resp.getWriter().println(responseBody);
+            return;
         }
 
+        ResponseMsg responseMsg = new ResponseMsg(ResponseEnum.SUCCESS.getValue(), "loginSuccess");
         String responseBody = gson.toJson(responseMsg);
         resp.getWriter().println(responseBody);
+        
     }
 
 }
