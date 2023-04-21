@@ -7,7 +7,7 @@ public enum ResponseEnum {
     ResponseEnum(int value) {
         this.value = value;
     }
-
+    
     public int getValue() {
         return value;
     }
